@@ -31,7 +31,6 @@ class CourseLibrary extends Component {
     }
 
     render() {
-        
         return ( 
             <ul>
 
