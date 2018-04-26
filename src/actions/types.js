@@ -1,2 +1,2 @@
 export const FETCH_COURSES = 'fetch_courses';
-//REMOVE_COURSE
+export const REMOVE_COURSE = './remove_course';
