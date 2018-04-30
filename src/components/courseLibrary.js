@@ -22,11 +22,12 @@ class CourseLibrary extends Component {
                 <div className="course__title-container">
                     <div className="course__title">{course.title}</div>
                 </div>
+                
                 <a className={`course__arrow ${course.open ? null : 'course__arrow-close'}`} onClick={() => this.props.toggleDescription(course)}></a>
                 <a className={`action ${course.enrolled ? 'hide-content' : 'show-content'}`} onClick={() => this.props.addCourse(course)}>add</a>
                 <a className={`action ${course.enrolled ? 'show-content' : 'hide-content'}`} onClick={() => this.props.removeCourse(course)}>remove</a>
             </div>
-
+             
         <AnimateHeight
           duration={ 300 }
           height={ course.open ? 'auto' : '0' } // see props documentation bellow
