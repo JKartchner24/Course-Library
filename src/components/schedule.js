@@ -10,19 +10,19 @@ class Schedule extends Component {
         this.renderCourse = this.renderCourse.bind(this);
 
         this.state = {
-        	enrolled: []
+            enrolled: []
         }
     }
 
     renderCourse(course) {
-    	console.log(this.state.enrolled.indexOf(course));
         return (
-            <div key={this.props.courses.indexOf(course)} className={`slot ${course.enrolled ? 'slot__course' : 'slot__empty'}`}>
+            <div key={this.state.enrolled.indexOf(course)} className={`slot ${course.enrolled ? 'slot__course' : 'slot__empty'}`}>
                 <div>{course.enrolled ? course.title : 'Empty Slot'}</div>
                 <a className={`action slot__remove`} onClick={() => this.props.removeCourse(course)}>remove course</a>
             </div>
         )
     }
+
 
     componentWillReceiveProps(nextProps) {
         var newEnrolled = []
@@ -40,7 +40,7 @@ class Schedule extends Component {
             }
         })
         for(var i = newEnrolled.length; i < 5; i++) {
-        	newEnrolled.push({enrolled:false})
+            newEnrolled.push({enrolled: false})
         }
         this.setState({
             enrolled: newEnrolled
@@ -51,7 +51,7 @@ class Schedule extends Component {
         return (
             <div>
                 <div className="schedule__slots">
-                    {
+                    {                    
                         this.state.enrolled.map(this.renderCourse)
                     }
                 </div>
@@ -63,12 +63,12 @@ class Schedule extends Component {
 }
 
 function mapStateToProps(state) {
-	var enrolledCourses = []
-	state.courses.map((course) => {
-		if(course.enrolled) {
-			enrolledCourses.push(course);
-		}
-	})
+    var enrolledCourses = []
+    state.courses.map((course) => {
+        if(course.enrolled) {
+            enrolledCourses.push(course);
+        }
+    })
     return { courses: enrolledCourses };
 }
 
