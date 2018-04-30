@@ -8,9 +8,14 @@ class Schedule extends Component {
         super(props) 
 
         this.renderCourse = this.renderCourse.bind(this);
+
+        this.state = {
+        	enrolled: []
+        }
     }
 
     renderCourse(course) {
+    	console.log(this.state.enrolled.indexOf(course));
         return (
             <div key={this.props.courses.indexOf(course)} className={`slot ${course.enrolled ? 'slot__course' : 'slot__empty'}`}>
                 <div>{course.enrolled ? course.title : 'Empty Slot'}</div>
@@ -19,16 +24,35 @@ class Schedule extends Component {
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        var newEnrolled = []
+
+        this.state.enrolled.map((course) => {
+            if(course.enrolled) {
+                console.log(course.title);
+                newEnrolled.push(course);
+            }
+        })
+        nextProps.courses.map((course) => {
+            if(course.enrolled && !newEnrolled.includes(course)) {
+                console.log(course.title);
+                newEnrolled.push(course)
+            }
+        })
+        for(var i = newEnrolled.length; i < 5; i++) {
+        	newEnrolled.push({enrolled:false})
+        }
+        this.setState({
+            enrolled: newEnrolled
+        })
+    }
+
     render() {
         return (
             <div>
                 <div className="schedule__slots">
                     {
-                    	// filter out course instances that we are not enrolled in.
-                    	// ordering
-                    	//empty slots
-
-                        this.props.courses.map(this.renderCourse)
+                        this.state.enrolled.map(this.renderCourse)
                     }
                 </div>
             </div>
