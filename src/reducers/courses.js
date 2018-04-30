@@ -1,11 +1,11 @@
-import { FETCH_COURSES, REMOVE_COURSE, ADD_COURSE } from '../actions/types';
+import { FETCH_COURSES, REMOVE_COURSE, ADD_COURSE, TOGGLE_DESCRIPTION } from '../actions/types';
 
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_COURSES:
-            return [...state, ...action.payload]
+            return [ ...state, ...action.payload ]
         case REMOVE_COURSE:
-            return [
+            return [ 
                 ...state.map((course, index) => {
                     if(course == action.payload) {
                         course.enrolled = false
@@ -14,7 +14,7 @@ export default function(state = [], action) {
                 })
             ]
         case ADD_COURSE:
-            return [
+            return [ 
                 ...state.map((course, index) => {
                     if(course == action.payload) {
                         course.enrolled = true
@@ -22,7 +22,16 @@ export default function(state = [], action) {
                     return course
                 })
             ]
+        case TOGGLE_DESCRIPTION:
+            return [ 
+                ...state.map((course, index) => {
+                    if(course == action.payload) {
+                        course.open = !course.open
+                    }
+                    return course
+                })
+            ]
         default: return state
-
+  
     }
 }
